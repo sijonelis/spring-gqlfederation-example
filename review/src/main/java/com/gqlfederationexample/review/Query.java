@@ -1,16 +1,17 @@
 package com.gqlfederationexample.review;
 
-import graphql.kickstart.tools.GraphQLQueryResolver;
+import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsQuery;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class Query implements GraphQLQueryResolver {
+@DgsComponent
+public class Query {
 
     @Autowired
     ReviewService reviewService;
 
+    @DgsQuery
     public Review trivia(DataFetchingEnvironment dataFetchingEnvironment) {
         return reviewService.fetchReview();
     }

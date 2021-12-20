@@ -1,12 +1,12 @@
 package com.gqlfederationexample.inventory;
 
-import graphql.kickstart.tools.GraphQLQueryResolver;
+import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsQuery;
 import graphql.schema.DataFetchingEnvironment;
-import org.springframework.stereotype.Service;
 
-@Service
-public class Query implements GraphQLQueryResolver {
-
+@DgsComponent
+public class Query {
+    @DgsQuery
     public Product trivial(final DataFetchingEnvironment dataFetchingEnvironment) {
         return new Product("123", 123);
     }

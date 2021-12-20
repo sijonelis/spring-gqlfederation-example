@@ -1,11 +1,11 @@
 package com.gqlfederationexample.user;
 
-import graphql.kickstart.tools.GraphQLResolver;
+import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserResolver implements GraphQLResolver<User> {
+@DgsComponent
+public class UserResolver {
 
     private final UserService userService;
 
@@ -13,6 +13,7 @@ public class UserResolver implements GraphQLResolver<User> {
         this.userService = userService;
     }
 
+    @DgsData(parentType = "User", field = "address")
     public Address address(User user, DataFetchingEnvironment dataFetchingEnvironment) {
         return userService.findAddressByUserId(user.getId());
     }
