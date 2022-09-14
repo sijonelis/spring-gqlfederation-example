@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one
+    ports:      
+      - "14250" # accept model.proto
+      - "14268" # accept jaeger.thrift directly from clients
+      - "16686:16686" # serve frontend
+  sleuth:
+    image: otel/opentelemetry-collector
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    volumes:
+      - ./otel-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "1888:1888"   # pprof extension
+      - "13133:13133" # health_check extension
+      - "4317:4317"        # OTLP gRPC receiver
+      - "55670:55679" # zpages extension
+    depends_on:
+      - jaeger-all-in-one

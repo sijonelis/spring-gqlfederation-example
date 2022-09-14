@@ -13,10 +13,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="inventory" target="11" />
-      <module name="product" target="11" />
-      <module name="review" target="11" />
-      <module name="user" target="11" />
+      <module name="inventory" target="17" />
+      <module name="product" target="17" />
+      <module name="review" target="17" />
+      <module name="user" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
