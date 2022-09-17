@@ -1,14 +1,18 @@
-package com.gqlfederationexample.user.domain.service
+package com.gqlfederationexample.user.domain.cqrs
 
+import com.gqlfederationexample.user.api.axon.SingleUserByIdQuery
 import com.gqlfederationexample.user.domain.model.Address
 import com.gqlfederationexample.user.domain.model.User
+import org.axonframework.queryhandling.QueryHandler
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 
-@Service
-class UserService {
+@Component
+class UserProjection {
     private val users: MutableList<User> = ArrayList()
     private val userAddressMap: MutableMap<User, Address> = HashMap()
+
     @PostConstruct
     fun init() {
         val user1 = User(1L, "@ada", "Ada Lovelace")
@@ -19,12 +23,8 @@ class UserService {
         users.add(user2)
     }
 
-    fun lookupUser(id: Long): User {
-
-        return users.stream().filter { user: User -> user.id == id }.findAny().get()
-    }
-
-    fun findAddressByUserId(userId: Long?): Address? {
-        return userAddressMap[userId?.let { lookupUser(it) }]
+    @QueryHandler
+    fun handle(query: SingleUserByIdQuery): User {
+        return users.stream().filter { user: User -> user.id == query.userId }.findAny().get()
     }
 }

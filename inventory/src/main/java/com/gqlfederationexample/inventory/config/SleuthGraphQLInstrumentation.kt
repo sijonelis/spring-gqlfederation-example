@@ -42,7 +42,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
         nextSpan.start()
         val state: SleuthInstrumentationState = parameters.getInstrumentationState()
         state.setContext(nextSpan)
-        return SimpleInstrumentationContext.whenCompleted { result: ExecutionResult, throwable: Throwable? ->
+        return SimpleInstrumentationContext.whenCompleted { result: ExecutionResult, _: Throwable? ->
             for (error in result.errors) {
                 val errorEvent: String = getErrorEvent(error)
                 nextSpan.tag("error", errorEvent)
@@ -89,7 +89,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
     ): DataFetcher<*> {
         val state: SleuthInstrumentationState = parameters.getInstrumentationState()
         return DataFetcher { environment: DataFetchingEnvironment? ->
-            tracer.withSpan(state.span).use { ignored ->
+            tracer.withSpan(state.span).use { _ ->
                 return@DataFetcher dataFetcher[environment]
             }
         }

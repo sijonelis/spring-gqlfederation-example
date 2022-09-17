@@ -15,6 +15,7 @@ import graphql.schema.DataFetchingEnvironment
 import graphql.util.TraversalControl
 import graphql.util.TraverserContext
 import graphql.util.TreeTransformerUtil
+import graphql.validation.ValidationError
 import org.springframework.cloud.sleuth.Span
 import org.springframework.cloud.sleuth.Tracer
 import org.springframework.stereotype.Component
@@ -149,13 +150,23 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
         private const val EXCEPTION_TYPE = "exception.type"
         private const val EXCEPTION_MESSAGE = "exception.message"
         private fun getErrorEvent(error: GraphQLError): String {
-            return MessageFormat.format(
-                "{0}'{'\"{1}\" => {2}\"{3}\" => {4}'}'",
-                EXCEPTION_EVENT_NAME,
-                EXCEPTION_TYPE, error.errorType.toString(),
-                EXCEPTION_MESSAGE,
-                error.message
-            )
+            if (error is ValidationError) {
+                return MessageFormat.format(
+                    "{0}'{'\"{1}\" => {2}\"{3}\" => {4}'}'",
+                    EXCEPTION_EVENT_NAME,
+                    EXCEPTION_TYPE, error.validationErrorType.toString(),
+                    EXCEPTION_MESSAGE,
+                    error.message
+                )
+            } else {
+                return MessageFormat.format(
+                    "{0}'{'\"{1}\" => {2}\"{3}\" => {4}'}'",
+                    EXCEPTION_EVENT_NAME,
+                    EXCEPTION_TYPE, error.extensions["errorType"].toString(),
+                    EXCEPTION_MESSAGE,
+                    error.message
+                )
+            }
         }
 
         private fun sanitize(node: Node<*>?): Node<*> {

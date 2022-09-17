@@ -1,7 +1,5 @@
 package com.gqlfederationexample.review.domain.model
 
-import com.gqlfederationexample.review.domain.model.Review
-
 class User {
     val id: String
     var username: String? = null

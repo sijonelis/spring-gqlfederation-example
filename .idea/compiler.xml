@@ -2,21 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="product" />
+        <module name="axon_api" />
         <module name="inventory" />
         <module name="user" />
         <module name="review" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="inventory" target="17" />
-      <module name="product" target="17" />
-      <module name="review" target="17" />
-      <module name="user" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
