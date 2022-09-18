@@ -80,6 +80,11 @@
             <version>${axon.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-tracing-opentelemetry</artifactId>
+            <version>${axon.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>

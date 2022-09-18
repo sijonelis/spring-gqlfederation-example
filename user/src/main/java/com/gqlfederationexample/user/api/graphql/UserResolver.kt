@@ -19,7 +19,7 @@ class UserResolver(private val queryDispatcher: QueryDispatcher) {
     @DgsQuery
     fun me(userId: Long, dataFetchingEnvironment: DataFetchingEnvironment?): User {
         logger.info { "${dataFetchingEnvironment!!.executionId}: fetching user" }
-        val review = queryDispatcher.getReviewById(1)
+//        val review = queryDispatcher.getReviewById(1)
         return queryDispatcher.getUserById(userId)
 //        return userService.lookupUser(userId.toString())
     }

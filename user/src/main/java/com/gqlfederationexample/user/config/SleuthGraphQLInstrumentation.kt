@@ -16,8 +16,9 @@ import graphql.util.TraversalControl
 import graphql.util.TraverserContext
 import graphql.util.TreeTransformerUtil
 import graphql.validation.ValidationError
-import org.springframework.cloud.sleuth.Span
-import org.springframework.cloud.sleuth.Tracer
+import io.opentelemetry.api.GlobalOpenTelemetry
+import io.opentelemetry.api.trace.Span
+import io.opentelemetry.api.trace.Tracer
 import org.springframework.stereotype.Component
 import java.text.MessageFormat
 
@@ -39,25 +40,24 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
     override fun beginExecution(
         parameters: InstrumentationExecutionParameters
     ): InstrumentationContext<ExecutionResult> {
-        val nextSpan = tracer.nextSpan()
-        nextSpan.start()
+        val nextSpan = tracer.spanBuilder(OPERATION_NAME).startSpan()
         val state: SleuthInstrumentationState = parameters.getInstrumentationState()
         state.setContext(nextSpan)
         return SimpleInstrumentationContext.whenCompleted { result: ExecutionResult, throwable: Throwable? ->
             for (error in result.errors) {
                 val errorEvent: String = getErrorEvent(error)
-                nextSpan.tag("error", errorEvent)
+                nextSpan.setAttribute("error", errorEvent)
             }
             endSpan(nextSpan, state)
         }
     }
 
     private fun endSpan(nextSpan: Span, state: SleuthInstrumentationState) {
-        nextSpan.tag(OPERATION_NAME, state.operationName)
+        nextSpan.setAttribute(OPERATION_NAME, state.operationName)
         if (state.operation != null) {
-            nextSpan.tag(OPERATION_TYPE, state.operation!!.name)
+            nextSpan.setAttribute(OPERATION_TYPE, state.operation!!.name)
         }
-        nextSpan.tag(GRAPHQL_SOURCE, state.query)
+        nextSpan.setAttribute(GRAPHQL_SOURCE, state.query)
         nextSpan.end()
     }
 
@@ -74,7 +74,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
         if (operationName != null && !operationName.isEmpty()) {
             spanName += " $operationName"
         }
-        span.name(spanName)
+        span.updateName(spanName)
         state.operation = operation
         state.operationName = operationName
         var node: Node<*>? = operationDefinition
@@ -88,11 +88,8 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
     override fun instrumentDataFetcher(
         dataFetcher: DataFetcher<*>, parameters: InstrumentationFieldFetchParameters
     ): DataFetcher<*> {
-        val state: SleuthInstrumentationState = parameters.getInstrumentationState()
         return DataFetcher { environment: DataFetchingEnvironment? ->
-            tracer.withSpan(state.span).use { ignored ->
-                return@DataFetcher dataFetcher[environment]
-            }
+            return@DataFetcher dataFetcher[environment]
         }
     }
 

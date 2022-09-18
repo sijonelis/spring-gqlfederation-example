@@ -1,6 +1,10 @@
 package com.gqlfederationexample.user.config.axon
 
-import com.gqlfederationexample.user.system.SleuthSpanFactory
+//import com.gqlfederationexample.user.system.SleuthSpanFactory2
+import com.gqlfederationexample.user.system.BetterOpenTelemetrySpanFactory
+import io.opentelemetry.api.trace.Tracer
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator
+import io.opentelemetry.context.propagation.TextMapPropagator
 import org.axonframework.axonserver.connector.AxonServerConfiguration
 import org.axonframework.axonserver.connector.AxonServerConnectionManager
 import org.axonframework.axonserver.connector.TargetContextResolver
@@ -15,12 +19,10 @@ import org.axonframework.queryhandling.QueryInvocationErrorHandler
 import org.axonframework.queryhandling.QueryMessage
 import org.axonframework.queryhandling.SimpleQueryBus
 import org.axonframework.serialization.Serializer
-import org.axonframework.spring.config.AxonConfiguration
-import org.axonframework.tracing.LoggingSpanFactory
+import org.axonframework.tracing.opentelemetry.OpenTelemetrySpanFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.cloud.sleuth.Tracer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.axonframework.axonserver.connector.query.AxonServerQueryBus.builder as builder
@@ -75,7 +77,8 @@ open class AxonConfig {
             .messageSerializer(messageSerializer)
             .genericSerializer(genericSerializer)
             .priorityCalculator(priorityCalculator)
-            .spanFactory(SleuthSpanFactory.invoke(tracer))
+            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+//            .spanFactory(SleuthSpanFactory2.Builder().tracer(tracer).build())
             .targetContextResolver(targetContextResolver).build()
     }
 
@@ -85,11 +88,15 @@ open class AxonConfig {
     ): SimpleQueryBus {
         return SimpleQueryBus.builder()
             .transactionManager(txManager!!)
-            .spanFactory(SleuthSpanFactory.invoke(tracer))
+            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+//            .spanFactory(SleuthSpanFactory2.Builder().tracer(tracer).build())
             .build()
     }
-
-
+//
+//    @Bean
+//    open fun textMapPropagator(): TextMapPropagator {
+//        return TextMapPropagator.composite(W3CTraceContextPropagator.getInstance())
+//    }
 
 //    @Bean
 //    @Profile("command")

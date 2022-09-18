@@ -114,7 +114,6 @@ object SleuthSpanFactory : SpanFactory {
 
     override fun <M : Message<*>?> propagateContext(message: M): M {
         if (message is GenericQueryMessage<*,*>) {
-            val mcs = MetadataCo
             var spanContext: HashMap<String, String> = HashMap()
 //            spanContext.put("parentSpanContext", tracer.currentSpan().context().spanId())
             message.metaData.put("parentSpanContext", tracer.currentSpan().context().spanId())
