@@ -21,7 +21,6 @@ class UserResolver(private val queryDispatcher: QueryDispatcher) {
         logger.info { "${dataFetchingEnvironment!!.executionId}: fetching user" }
         val review = queryDispatcher.getReviewById(1)
         return queryDispatcher.getUserById(userId)
-//        return userService.lookupUser(userId.toString())
     }
 
 //    @DgsData(parentType = "User")

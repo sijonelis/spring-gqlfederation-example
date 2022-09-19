@@ -1,7 +1,1 @@
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\UserService.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\Address.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\UserResolver.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\User.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\Query.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\GraphQLConfig.java
-C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\vinaybedre\gqlfederation\user\UserApplication.java
+C:\Projects\learning\java-graphql-federation-starter\user\src\main\java\com\gqlfederationexample\user\system\BetterOpenTelemetrySpanFactory.java
