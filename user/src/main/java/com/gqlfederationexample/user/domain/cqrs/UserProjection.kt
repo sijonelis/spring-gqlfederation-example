@@ -6,6 +6,7 @@ import com.gqlfederationexample.user.domain.model.User
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
+import java.lang.IllegalStateException
 import javax.annotation.PostConstruct
 
 @Component
@@ -25,6 +26,9 @@ class UserProjection {
 
     @QueryHandler
     fun handle(query: SingleUserByIdQuery): User {
+        if (query.userId == 0L) {
+            throw IllegalStateException("The world has crashed")
+        }
         return users.stream().filter { user: User -> user.id == query.userId }.findAny().get()
     }
 }
