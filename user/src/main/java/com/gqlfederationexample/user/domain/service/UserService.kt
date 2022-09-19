@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 
 @Service
-class UserService {
+internal class UserService {
     private val users: MutableList<User> = ArrayList()
     private val userAddressMap: MutableMap<User, Address> = HashMap()
     @PostConstruct

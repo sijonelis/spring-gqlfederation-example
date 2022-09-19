@@ -17,7 +17,7 @@ class UserResolver(private val queryDispatcher: QueryDispatcher) {
     private val logger = KotlinLogging.logger {}
 
     @DgsQuery
-    fun me(userId: Long, dataFetchingEnvironment: DataFetchingEnvironment?): User {
+    fun user(userId: Long, dataFetchingEnvironment: DataFetchingEnvironment?): User {
         logger.info { "${dataFetchingEnvironment!!.executionId}: fetching user" }
         val review = queryDispatcher.getReviewById(1)
         return queryDispatcher.getUserById(userId)

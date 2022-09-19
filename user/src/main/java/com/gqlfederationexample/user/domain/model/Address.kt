@@ -1,3 +1,13 @@
 package com.gqlfederationexample.user.domain.model
 
-class Address(var id: Long, var city: String, var country: String)
+import javax.persistence.*
+
+@Entity
+data class Address(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long,
+    @Column
+    var city: String,
+    @Column
+    var country: String)
