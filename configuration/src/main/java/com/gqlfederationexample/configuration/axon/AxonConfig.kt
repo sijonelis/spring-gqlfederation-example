@@ -1,14 +1,12 @@
-package com.gqlfederationexample.user.config.axon
+package com.gqlfederationexample.configuration.config.axon
 
-//import com.gqlfederationexample.user.system.SleuthSpanFactory2
-import com.gqlfederationexample.user.system.BetterOpenTelemetrySpanFactory
+import com.gqlfederationexample.configuration.axon.BetterOpenTelemetrySpanFactory
 import io.opentelemetry.api.trace.Tracer
-import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator
-import io.opentelemetry.context.propagation.TextMapPropagator
 import org.axonframework.axonserver.connector.AxonServerConfiguration
 import org.axonframework.axonserver.connector.AxonServerConnectionManager
 import org.axonframework.axonserver.connector.TargetContextResolver
 import org.axonframework.axonserver.connector.query.AxonServerQueryBus
+import org.axonframework.axonserver.connector.query.AxonServerQueryBus.builder
 import org.axonframework.axonserver.connector.query.QueryPriorityCalculator
 import org.axonframework.common.transaction.TransactionManager
 import org.axonframework.config.Configurer
@@ -19,13 +17,11 @@ import org.axonframework.queryhandling.QueryInvocationErrorHandler
 import org.axonframework.queryhandling.QueryMessage
 import org.axonframework.queryhandling.SimpleQueryBus
 import org.axonframework.serialization.Serializer
-import org.axonframework.tracing.opentelemetry.OpenTelemetrySpanFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.axonframework.axonserver.connector.query.AxonServerQueryBus.builder as builder
 
 
 @Configuration
@@ -78,7 +74,6 @@ open class AxonConfig {
             .genericSerializer(genericSerializer)
             .priorityCalculator(priorityCalculator)
             .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
-//            .spanFactory(SleuthSpanFactory2.Builder().tracer(tracer).build())
             .targetContextResolver(targetContextResolver).build()
     }
 
@@ -89,26 +84,6 @@ open class AxonConfig {
         return SimpleQueryBus.builder()
             .transactionManager(txManager!!)
             .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
-//            .spanFactory(SleuthSpanFactory2.Builder().tracer(tracer).build())
             .build()
     }
-//
-//    @Bean
-//    open fun textMapPropagator(): TextMapPropagator {
-//        return TextMapPropagator.composite(W3CTraceContextPropagator.getInstance())
-//    }
-
-//    @Bean
-//    @Profile("command")
-//    fun giftCardCache(): Cache {
-//        return WeakReferenceCache()
-//    }
-//
-//    // This ensures the XStream instance used is allowed to de-/serializer this demo's classes
-//    @Bean
-//    fun xStream(): XStream {
-//        val xStream = XStream()
-//        xStream.allowTypesByWildcard(arrayOf("io.axoniq.demo.giftcard.**"))
-//        return xStream
-//    }
 }

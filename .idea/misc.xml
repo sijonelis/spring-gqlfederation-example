@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/inventory/pom.xml" />
         <option value="$PROJECT_DIR$/review/pom.xml" />
         <option value="$PROJECT_DIR$/axon_api/pom.xml" />
+        <option value="$PROJECT_DIR$/configuration/pom.xml" />
       </list>
     </option>
   </component>

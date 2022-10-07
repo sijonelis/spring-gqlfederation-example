@@ -4,23 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>inventory</artifactId>
-    <groupId>com.gqlfederationexample.inventory</groupId>
+    <groupId>com.gqlfederationexample</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <name>inventory</name>
     <packaging>jar</packaging>
-
-    <properties>
-        <java.version>17</java.version>
-        <kotlin.logging.version>2.1.20</kotlin.logging.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <opentelemetry.version>1.14.0</opentelemetry.version>
-        <spring.version>5.3.22</spring.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-sleuth-otel.version>1.1.0-M7</spring-cloud-sleuth-otel.version>
-        <spring-boot.version>2.7.3</spring-boot.version>
-        <spring-security.version>5.3.22</spring-security.version>
-    </properties>
 
     <repositories>
         <repository>
@@ -31,87 +18,18 @@
             </releases>
         </repository>
     </repositories>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.netflix.graphql.dgs</groupId>
-                <artifactId>graphql-dgs-platform-dependencies</artifactId>
-                <!-- The DGS BOM/platform dependency. This is the only place you set version of DGS -->
-                <version>5.2.1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <!-- spring cloud dependency -->
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.opentelemetry</groupId>
-                <!-- open telemetry dependency -->
-                <artifactId>opentelemetry-bom</artifactId>
-                <version>${opentelemetry.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <!-- spring cloud sleuth dependency -->
-                <artifactId>spring-cloud-sleuth-otel-dependencies</artifactId>
-                <version>${spring-cloud-sleuth-otel.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
+        <!-- business -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
+            <groupId>com.gqlfederationexample</groupId>
+            <artifactId>axon_api</artifactId>
+            <version>${project.version}</version>
         </dependency>
+        <!-- configuration -->
         <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- open telemetry deps -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-sleuth-brave</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-otel-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-exporter-otlp-trace</artifactId>
-        </dependency>
-        <!-- test dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
+            <groupId>com.gqlfederationexample</groupId>
+            <artifactId>configuration</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -1,4 +1,4 @@
-package com.gqlfederationexample.user.config
+package com.gqlfederationexample.configuration.otel
 
 import graphql.ExecutionResult
 import graphql.GraphQLError
@@ -28,21 +28,21 @@ import java.text.MessageFormat
  * [Original Implementation](https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/graphql-java-12.0/library)
  */
 @Component
-internal class SleuthGraphQLInstrumentation    // At the moment, we always sanitize the query.
+internal class OtelGraphQLInstrumentation    // At the moment, we always sanitize the query.
     (private val tracer: Tracer) :
     SimpleInstrumentation() {
     private val sanitizeQuery = true
     override fun createState(): InstrumentationState {
-        return SleuthInstrumentationState()
+        return GqlInstrumentationState()
     }
 
     override fun beginExecution(
         parameters: InstrumentationExecutionParameters
     ): InstrumentationContext<ExecutionResult> {
         val nextSpan = tracer.spanBuilder(OPERATION_NAME).startSpan()
-        val state: SleuthInstrumentationState = parameters.getInstrumentationState()
+        val state: GqlInstrumentationState = parameters.getInstrumentationState()
         state.setContext(nextSpan)
-        return SimpleInstrumentationContext.whenCompleted { result: ExecutionResult, throwable: Throwable? ->
+        return SimpleInstrumentationContext.whenCompleted { result: ExecutionResult, _: Throwable? ->
             for (error in result.errors) {
                 val errorEvent: String = getErrorEvent(error)
                 nextSpan.setAttribute("error", errorEvent)
@@ -51,7 +51,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
         }
     }
 
-    private fun endSpan(nextSpan: Span, state: SleuthInstrumentationState) {
+    private fun endSpan(nextSpan: Span, state: GqlInstrumentationState) {
         nextSpan.setAttribute(OPERATION_NAME, state.operationName)
         if (state.operation != null) {
             nextSpan.setAttribute(OPERATION_TYPE, state.operation!!.name)
@@ -63,7 +63,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
     override fun beginExecuteOperation(
         parameters: InstrumentationExecuteOperationParameters
     ): InstrumentationContext<ExecutionResult> {
-        val state: SleuthInstrumentationState = parameters.getInstrumentationState()
+        val state: GqlInstrumentationState = parameters.getInstrumentationState()
         val span: Span = state.span!!
         val operationDefinition = parameters.executionContext.operationDefinition
         val operation = operationDefinition.operation
@@ -123,7 +123,7 @@ internal class SleuthGraphQLInstrumentation    // At the moment, we always sanit
         }
     }
 
-    internal class SleuthInstrumentationState : InstrumentationState {
+    internal class GqlInstrumentationState : InstrumentationState {
         var span: Span? = null
             private set
         var operation: OperationDefinition.Operation? = null
