@@ -3,11 +3,10 @@ package com.gqlfederationexample.inventory.domain.service
 import com.gqlfederationexample.inventory.domain.model.Inventory
 import com.gqlfederationexample.inventory.domain.repository.InventoryRepository
 import io.opentelemetry.api.trace.Tracer
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class InventoryService @Autowired constructor(
+class InventoryService (
     private val inventoryRepository: InventoryRepository,
     private val tracer: Tracer
 ){

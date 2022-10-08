@@ -1,22 +1,23 @@
 package com.gqlfederationexample.review.domain.model
 
-class Review {
-    var id: Long? = null
-    var body: String? = null
-    var author: User? = null
-    var product: Product? = null
+import javax.persistence.*
 
-    constructor(id: Long?, body: String?, author: User?, product: Product?) {
-        this.id = id
-        this.body = body
-        this.author = author
-        this.product = product
-    }
+@Entity
+@Table(name = "reviews")
+open class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    open val id: Long? = null
 
-    constructor(id: Long?, body: String?) {
-        this.id = id
-        this.body = body
-    }
+    @Column
+    open val body: String = ""
 
-    constructor() {}
+    @Column(name = "author_id")
+    open val authorId: Long? = null
+
+    @Column(name = "product_id")
+    open val productId: Long? = null
+
+    @Column
+    open val rating: Int = 0
 }

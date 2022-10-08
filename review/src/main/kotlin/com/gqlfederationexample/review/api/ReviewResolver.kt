@@ -1,18 +1,17 @@
 package com.gqlfederationexample.review.api
 
 import com.gqlfederationexample.review.domain.model.Review
-import com.gqlfederationexample.review.domain.service.ReviewService
+import com.gqlfederationexample.review.system.QueryDispatcher
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsQuery
 import graphql.schema.DataFetchingEnvironment
-import org.springframework.beans.factory.annotation.Autowired
 
 @DgsComponent
-class ReviewResolver {
-    @Autowired
-    var reviewService: ReviewService? = null
+class ReviewResolver (
+    private val queryDispatcher: QueryDispatcher
+){
     @DgsQuery
-    fun trivia(dataFetchingEnvironment: DataFetchingEnvironment?): Review {
-        return reviewService!!.fetchReview()
+    fun review(reviewId: Long, dataFetchingEnvironment: DataFetchingEnvironment?): Review {
+        return queryDispatcher.getReviewById(reviewId)
     }
 }

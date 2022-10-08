@@ -4,11 +4,14 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "addresses")
-data class Address(
+open class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    open val id: Long? = null
+
     @Column
-    var city: String,
+    open val city: String = ""
+
     @Column
-    var country: String)
+    open val country: String = ""
+}

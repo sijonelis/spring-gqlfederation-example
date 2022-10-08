@@ -1,17 +1,15 @@
 package com.gqlfederationexample.product.domain.cqrs
 
 import com.gqlfederationexample.axonapi.queries.SingleProductByEanQuery
-import com.gqlfederationexample.product.domain.model.Product
-import com.gqlfederationexample.product.domain.service.ProductService
 import com.gqlfederationexample.axonapi.queries.SingleProductByIdQuery
 import com.gqlfederationexample.axonapi.queries.TopProductByReviewScore
+import com.gqlfederationexample.product.domain.model.Product
+import com.gqlfederationexample.product.domain.service.ProductService
 import org.axonframework.queryhandling.QueryHandler
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.lang.IllegalStateException
 
 @Component
-class ProductProjection @Autowired constructor(
+class ProductProjection (
     private val productService: ProductService
 ){
     @QueryHandler

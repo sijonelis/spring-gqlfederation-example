@@ -6,11 +6,10 @@ import com.gqlfederationexample.user.domain.repository.UserRepository
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.api.trace.Tracer
 import io.opentelemetry.context.Context
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class UserService @Autowired constructor(
+class UserService (
     private val userRepository: UserRepository,
     private val tracer: Tracer
 ) {

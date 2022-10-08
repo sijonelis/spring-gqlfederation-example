@@ -3,12 +3,11 @@ package com.gqlfederationexample.product.domain.service
 import com.gqlfederationexample.product.domain.model.Product
 import com.gqlfederationexample.product.domain.repository.ProductRepository
 import io.opentelemetry.api.trace.Tracer
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class ProductService @Autowired constructor(
+class ProductService (
     private val productRepository: ProductRepository,
     private val tracer: Tracer
 ){
