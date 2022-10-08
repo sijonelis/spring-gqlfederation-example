@@ -73,14 +73,6 @@ public class BetterOpenTelemetrySpanFactory implements SpanFactory {
   @SuppressWarnings("unchecked")
   public <M extends Message<?>> M propagateContext(M message) {
     HashMap<String, String> additionalMetadataProperties = new HashMap<>();
-
-//    var currentSpan = io.opentelemetry.api.trace.Span.current();
-//    if (currentSpan != null)
-//    {
-//      additionalMetadataProperties.put("traceId", currentSpan.getSpanContext().getTraceId());
-//      additionalMetadataProperties.put("spanId", currentSpan.getSpanContext().getSpanId());
-//    }
-
     propagator().inject(Context.current(), additionalMetadataProperties, textMapSetter);
     return (M) message.andMetaData(additionalMetadataProperties);
   }
@@ -102,21 +94,10 @@ public class BetterOpenTelemetrySpanFactory implements SpanFactory {
       parentMessage,
       textMapGetter);
 
-//    SpanContext remoteContext = null;
-//    if (parentMessage.getMetaData().containsKey("traceId") && parentMessage.getMetaData().containsKey("spanId")) {
-//      remoteContext = SpanContext.createFromRemoteParent(
-//        parentMessage.getMetaData().get("traceId").toString(),
-//        parentMessage.getMetaData().get("spanId").toString(),
-//        TraceFlags.getSampled(),
-//        TraceState.getDefault());
-//    }
-
     SpanBuilder spanBuilder = tracer.spanBuilder(formatName(operationNameSupplier.get(), parentMessage))
       .setSpanKind(SpanKind.CONSUMER);
     if (isChildTrace) {
       spanBuilder.setParent(parentContext);
-//    } else if (remoteContext != null) {
-//      spanBuilder.setParent(Context.current().with(io.opentelemetry.api.trace.Span.wrap(remoteContext)));
     } else {
       spanBuilder.addLink(io.opentelemetry.api.trace.Span.fromContext(Context.current()).getSpanContext())
         .setNoParent();
@@ -133,16 +114,6 @@ public class BetterOpenTelemetrySpanFactory implements SpanFactory {
     addLinks(spanBuilder, linkedSiblings);
     addMessageAttributes(spanBuilder, parentMessage);
     return new OpenTelemetrySpan(spanBuilder);
-//    SpanBuilder spanBuilder = tracer.spanBuilder(formatName(operationNameSupplier.get(), parentMessage))
-//      .setSpanKind(SpanKind.PRODUCER);
-//    Context parentContext = propagator().extract(Context.current(),
-//      parentMessage,
-//      textMapGetter);
-//    spanBuilder.setParent(Context.current());
-//    addLinks(spanBuilder, linkedSiblings);
-//
-//    addMessageAttributes(spanBuilder, parentMessage);
-//    return new OpenTelemetrySpan(spanBuilder);
   }
 
   private void addLinks(SpanBuilder spanBuilder, Message<?>[] linkedMessages) {
