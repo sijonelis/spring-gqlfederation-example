@@ -1,5 +1,6 @@
 type Product @key(fields: "upc") {
-    upc: String!
+    id: ID!
+    ean: String!
     name: String
     price: Int
     weight: Int

@@ -7,13 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="review (1) (com.gqlfederationexample.configuration)" />
         <module name="product" />
         <module name="axon_api" />
         <module name="inventory" />
         <module name="user" />
+        <module name="configuration" />
         <module name="review" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>
