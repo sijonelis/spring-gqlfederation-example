@@ -1,5 +1,6 @@
 package com.gqlfederationexample.user.api.graphql
 
+import com.gqlfederationexample.axonapi.queries.SingleReviewByIdQuery
 import com.gqlfederationexample.user.domain.model.User
 import com.gqlfederationexample.user.system.QueryDispatcher
 import com.netflix.graphql.dgs.DgsComponent

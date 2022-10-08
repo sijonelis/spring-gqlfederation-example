@@ -15,6 +15,7 @@
         <h2.version>2.1.214</h2.version>
         <hibernate.version>5.6.10.Final</hibernate.version>
         <jakarta.version>2.2.3</jakarta.version>
+        <jackson.version>2.13.4</jackson.version>
         <java.version>17</java.version>
         <kotlin.logging.version>2.1.20</kotlin.logging.version>
         <lombok.version>1.18.24</lombok.version>
@@ -106,6 +107,12 @@
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-extension-kotlin</artifactId>
             <version>${opentelemetry-kotlin.version}</version>
+        </dependency>
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-paranamer</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <!-- logging -->
         <dependency>

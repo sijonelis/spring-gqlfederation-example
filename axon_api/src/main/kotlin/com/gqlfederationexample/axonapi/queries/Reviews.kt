@@ -1,3 +1,3 @@
 package com.gqlfederationexample.axonapi.queries
 
-data class SingleReviewByIdQuery(val reviewId: Long)
+data class SingleReviewByIdQuery(val reviewId: Long = 0)
