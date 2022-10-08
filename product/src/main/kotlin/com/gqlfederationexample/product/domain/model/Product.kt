@@ -10,14 +10,14 @@ open class Product {
     open var id: Long? = null
 
     @Column
-    open var ean: String? = null
+    open var ean: String = ""
 
     @Column
-    open var name: String? = null
+    open var name: String = ""
 
     @Column
-    open var price: Int? = null
+    open var price: Double? = null
 
     @Column
-    open var weight: Int? = null
+    open var weight: Double? = null
 }

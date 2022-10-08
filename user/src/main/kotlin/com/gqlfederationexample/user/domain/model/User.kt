@@ -4,13 +4,13 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "users")
-data class User(
+open class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    open var id: Long,
     @Column
-    var name: String? = null,
+    open var name: String? = null,
     @Column
-    var username: String? = null,
+    open var username: String? = null,
     @OneToOne
-    var address: Address? = null)
+    open var address: Address? = null)
