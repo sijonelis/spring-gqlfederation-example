@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express'
 import express from 'express'
-import { url } from 'inspector'
 import { setInterval } from 'timers'
 import { gatewayBuilder } from './libs/apollo/GatewayBuilder'
 import { auth } from './middlewares/auth'
+import { configureOtel } from './middlewares/openTelemetry'
 import { serviceList } from './resources/services'
 import { GLOBAL_VARS } from './state/store'
 import { gatewayTimeout } from './utils/gatewayTimeout'
@@ -11,49 +11,7 @@ import { logger } from './utils/logger'
 
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
-// Should be moved to a separare file START
-const { Resource } = require('@opentelemetry/resources')
-const { SimpleSpanProcessor, ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-base')
-const { JaegerExporter } = require('@opentelemetry/exporter-jaeger')
-const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node')
-const { registerInstrumentations } = require('@opentelemetry/instrumentation')
-const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http')
-const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express')
-const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
-const { BatchSpanProcessor } = require('@opentelemetry/sdk-trace-base')
-
-// Register server-related instrumentation
-registerInstrumentations({
-  instrumentations: [new HttpInstrumentation(), new ExpressInstrumentation()],
-})
-
-// Initialize provider and identify this particular service
-// (in this case, we're implementing a federated gateway)
-const provider = new NodeTracerProvider({
-  resource: Resource.default().merge(
-    new Resource({
-      // Replace with any string to identify this service in your system
-      'service.name': 'gateway',
-    })
-  ),
-})
-
-// // Configure a test exporter to print all traces to the console
-// const consoleExporter = new ConsoleSpanExporter()
-// provider.addSpanProcessor(new SimpleSpanProcessor(consoleExporter))
-
-const collectorTraceExporter = new JaegerExporter()
-provider.addSpanProcessor(
-  new BatchSpanProcessor(collectorTraceExporter, {
-    maxQueueSize: 1000,
-    scheduledDelayMillis: 1000,
-  })
-)
-
-// Register the provider to begin tracing
-provider.register()
-
-// Should be moved to a separare file END
+configureOtel()
 
 const app = express()
 const port: number = parseInt(`${process.env.PORT}`, 10)

@@ -19,9 +19,7 @@
     "docker:prune": "docker system prune -a",
     "docker:build": "docker build -t gql-gateway-gen2 . --platform=linux/amd64",
     "docker:start": "docker run -p 3001:4000 gql-gateway",
-    "docker:start:cpulimit": "docker run --cpus=0.1 -p 3001:4000 gql-gateway",
-    //    "docker:tag": "docker image tag gql-gateway:latest some-registry/gql-gateway:latest",
-    //    "docker:push": "docker image push some-registry/gql-gateway:latest"
+    "docker:start:cpulimit": "docker run --cpus=0.1 -p 3001:4000 gql-gateway"
   },
   "dependencies": {
     "@apollo/gateway": "0.45.0",
