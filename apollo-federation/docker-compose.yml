@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  gql-gateway_test:
+    build: .
+    image: gql_test/gw_test:1.0.0
+    ports:
+      - 4000:4000
+    # env_file: .env.docker
