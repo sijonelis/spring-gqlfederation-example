@@ -17,4 +17,7 @@ open class User {
 
     @OneToOne
     open val address: Address? = null
+
+    @OneToMany
+    open val orders: List<Order> = listOf()
 }

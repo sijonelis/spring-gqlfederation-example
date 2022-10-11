@@ -5,6 +5,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "product_inventories")
 open class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     open var id: Long? = null
@@ -23,5 +24,13 @@ open class Inventory {
 
     open fun inStock (desiredStock: Double): Boolean {
         return openStock > desiredStock
+    }
+
+    open fun shippingEstimate(desiredStock: Double): Double {
+        return desiredStock * SHIPPING_COST_PER_WEIGHT_UNIT
+    }
+
+    companion object {
+        const val SHIPPING_COST_PER_WEIGHT_UNIT: Double = 10.0
     }
 }

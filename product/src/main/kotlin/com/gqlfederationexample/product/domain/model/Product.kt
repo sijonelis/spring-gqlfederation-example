@@ -15,9 +15,9 @@ open class Product {
     @Column
     open var name: String = ""
 
-    @Column
-    open var price: Double? = null
+    @Column(name = "unit_price")
+    open var unitPrice: Double? = null
 
-    @Column
-    open var weight: Double? = null
+    @Column(name = "unit_weight")
+    open var unitWeight: Double? = null
 }

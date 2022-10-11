@@ -1,9 +1,9 @@
-type Product @key(fields: "upc") {
+type Product @key(fields: "ean") {
     id: ID!
     ean: String!
     name: String
-    price: Int
-    weight: Int
+    unitPrice: Float
+    unitWeight: Float
 }
 
 type Query {

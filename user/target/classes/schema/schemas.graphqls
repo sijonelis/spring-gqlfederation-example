@@ -1,4 +1,4 @@
-type Query {
+    type Query {
     user(userId: Int!): User
 }
 

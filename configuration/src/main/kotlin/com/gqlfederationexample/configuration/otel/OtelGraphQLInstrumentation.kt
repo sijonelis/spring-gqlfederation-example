@@ -2,6 +2,7 @@ package com.gqlfederationexample.configuration.otel
 
 import graphql.ExecutionResult
 import graphql.GraphQLError
+import graphql.UnresolvedTypeError
 import graphql.execution.instrumentation.InstrumentationContext
 import graphql.execution.instrumentation.InstrumentationState
 import graphql.execution.instrumentation.SimpleInstrumentation
@@ -150,7 +151,16 @@ internal class OtelGraphQLInstrumentation    // At the moment, we always sanitiz
                 return MessageFormat.format(
                     "{0}'{'\"{1}\" => {2}\"{3}\" => {4}'}'",
                     EXCEPTION_EVENT_NAME,
-                    EXCEPTION_TYPE, error.validationErrorType.toString(),
+                    EXCEPTION_TYPE,
+                    error.validationErrorType.toString(),
+                    EXCEPTION_MESSAGE,
+                    error.message
+                )
+            } else if (error is UnresolvedTypeError) {
+                return MessageFormat.format(
+                    "{0}'{'\"{1}\" => {2}\" => {3}'}'",
+                    EXCEPTION_EVENT_NAME,
+                    EXCEPTION_TYPE,
                     EXCEPTION_MESSAGE,
                     error.message
                 )
@@ -158,7 +168,8 @@ internal class OtelGraphQLInstrumentation    // At the moment, we always sanitiz
                 return MessageFormat.format(
                     "{0}'{'\"{1}\" => {2}\"{3}\" => {4}'}'",
                     EXCEPTION_EVENT_NAME,
-                    EXCEPTION_TYPE, error.extensions["errorType"].toString(),
+                    EXCEPTION_TYPE,
+                    error.extensions["errorType"]?.toString(),
                     EXCEPTION_MESSAGE,
                     error.message
                 )

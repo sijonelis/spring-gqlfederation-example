@@ -1,9 +1,8 @@
-type Product @key(fields: "upc") @extends {
-    upc: String! @external
-    weight: Int @external
-    price: Int @external
-    inStock: Boolean
-    shippingEstimate: Int @requires(fields: "price weight")
+type Product @key(fields: "ean") @extends {
+    ean: String! @external
+    unitWeight: Float @external
+    stock: Float @requires(fields: "ean")
+    unitShippingEstimate: Float @requires(fields: "ean unitWeight")
 }
 
 type Query {
