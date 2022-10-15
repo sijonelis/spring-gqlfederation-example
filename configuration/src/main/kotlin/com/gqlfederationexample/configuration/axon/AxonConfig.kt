@@ -17,6 +17,7 @@ import org.axonframework.queryhandling.QueryInvocationErrorHandler
 import org.axonframework.queryhandling.QueryMessage
 import org.axonframework.queryhandling.SimpleQueryBus
 import org.axonframework.serialization.Serializer
+import org.axonframework.tracing.opentelemetry.OpenTelemetrySpanFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -73,7 +74,8 @@ open class AxonConfig {
             .messageSerializer(messageSerializer)
             .genericSerializer(genericSerializer)
             .priorityCalculator(priorityCalculator)
-            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+            .spanFactory(OpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+//            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
             .targetContextResolver(targetContextResolver).build()
     }
 
@@ -83,7 +85,8 @@ open class AxonConfig {
     ): SimpleQueryBus {
         return SimpleQueryBus.builder()
             .transactionManager(txManager)
-            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+            .spanFactory(OpenTelemetrySpanFactory.Builder().tracer(tracer).build())
+//            .spanFactory(BetterOpenTelemetrySpanFactory.Builder().tracer(tracer).build())
             .build()
     }
 }
