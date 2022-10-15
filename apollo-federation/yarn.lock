@@ -202,10 +202,22 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/api-metrics/-/api-metrics-0.27.0.tgz#d8eca344ed1155f3ea8a8133ade827b4bb90efbf"
   integrity sha512-tB79288bwjkdhPNpw4UdOEy3bacVwtol6Que7cAu8KEJ9ULjRfSiwpYEwJY/oER3xZ7zNFz0uiJ7N1jSiotpVA==
 
+"@opentelemetry/api-metrics@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api-metrics/-/api-metrics-0.33.0.tgz#753d355289b7811ad254d6e5b0193bd1b9f23ab0"
+  integrity sha512-78evfPRRRnJA6uZ3xuBuS3VZlXTO/LRs+Ff1iv3O/7DgibCtq9k27T6Zlj8yRdJDFmcjcbQrvC0/CpDpWHaZYA==
+  dependencies:
+    "@opentelemetry/api" "^1.0.0"
+
 "@opentelemetry/api@1.0", "@opentelemetry/api@^1.0.1":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.0.4.tgz#a167e46c10d05a07ab299fc518793b0cff8f6924"
   integrity sha512-BuJuXRSJNQ3QoKA6GWWDyuLpOUck+9hAXNMCnrloc1aWVoy6Xq6t9PUV08aBZ4Lutqq2LEHM486bpZqoViScog==
+
+"@opentelemetry/api@^1.0.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.2.0.tgz#89ef99401cde6208cff98760b67663726ef26686"
+  integrity sha512-0nBr+VZNKm9tvNDZFstI3Pq1fCTEDK5OZTnVKNvBNAKgd0yIvmwsP4m61rEv7ZP+tOUjWJhROpxK5MsnlF911g==
 
 "@opentelemetry/context-async-hooks@1.0.1":
   version "1.0.1"
@@ -236,14 +248,16 @@
     "@opentelemetry/semantic-conventions" "1.7.0"
     jaeger-client "^3.15.0"
 
-"@opentelemetry/exporter-trace-otlp-http@0.27":
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-trace-otlp-http/-/exporter-trace-otlp-http-0.27.0.tgz#0d2798e89ecae1487c3a2e7fed45eec7157df7ee"
-  integrity sha512-ZE8Ns/GGW83E4igrby69shiqEkVo+cULzbm4DprSEMCWrPAL/NBobETFOiOQyBBBgIfrhi5EG6truUiafB1cMQ==
+"@opentelemetry/exporter-trace-otlp-http@^0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-trace-otlp-http/-/exporter-trace-otlp-http-0.33.0.tgz#3b03847ec266c6acf098d89ce160347826358acc"
+  integrity sha512-bRMseTWB1NSrJtbCgf/ema5XO+o9Nj+Y4YbdTLg2n7gnsdoEW/l2Li+JXyxP7rgAsE3cLeekTmNp0IWq5t4TnA==
   dependencies:
-    "@opentelemetry/core" "1.0.1"
-    "@opentelemetry/resources" "1.0.1"
-    "@opentelemetry/sdk-trace-base" "1.0.1"
+    "@opentelemetry/core" "1.7.0"
+    "@opentelemetry/otlp-exporter-base" "0.33.0"
+    "@opentelemetry/otlp-transformer" "0.33.0"
+    "@opentelemetry/resources" "1.7.0"
+    "@opentelemetry/sdk-trace-base" "1.7.0"
 
 "@opentelemetry/instrumentation-express@0.28":
   version "0.28.0"
@@ -275,6 +289,24 @@
     semver "^7.3.2"
     shimmer "^1.2.1"
 
+"@opentelemetry/otlp-exporter-base@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/otlp-exporter-base/-/otlp-exporter-base-0.33.0.tgz#bfbdf9bd7b54b92f9d939df99639f30d6a917481"
+  integrity sha512-st+nsgv23BXSARFwugy6pheulDfOKjIFvzoYOUzPQDVhQtU8+l7dc50rIEybwXghb13o7mZs6Nb8KOvRk57qww==
+  dependencies:
+    "@opentelemetry/core" "1.7.0"
+
+"@opentelemetry/otlp-transformer@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/otlp-transformer/-/otlp-transformer-0.33.0.tgz#6fd3ddc944f017da08d445f142cad1779770e0e0"
+  integrity sha512-L4OpsUaki9/Fib17t44YkDvAz3RpMZTtl6hYBhcTqAnqY0wVBpQf0ra25GyHQTKj+oiA//ZxvOlmmM/dXCYxoQ==
+  dependencies:
+    "@opentelemetry/api-metrics" "0.33.0"
+    "@opentelemetry/core" "1.7.0"
+    "@opentelemetry/resources" "1.7.0"
+    "@opentelemetry/sdk-metrics" "0.33.0"
+    "@opentelemetry/sdk-trace-base" "1.7.0"
+
 "@opentelemetry/propagator-b3@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/propagator-b3/-/propagator-b3-1.0.1.tgz#07ca63921cbecd9833e651216807d9804b6d8516"
@@ -304,6 +336,16 @@
   dependencies:
     "@opentelemetry/core" "1.7.0"
     "@opentelemetry/semantic-conventions" "1.7.0"
+
+"@opentelemetry/sdk-metrics@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-metrics/-/sdk-metrics-0.33.0.tgz#c4e51decc6e3bb0e1e97c7b081955d357e46c2fe"
+  integrity sha512-ZXPixOlTd/FHLwpkmm5nTpJE7bZOPfmbSz8hBVFCEHkXE1aKEKaM38UFnZ+2xzOY1tDsDwyxEiiBiDX8y3039A==
+  dependencies:
+    "@opentelemetry/api-metrics" "0.33.0"
+    "@opentelemetry/core" "1.7.0"
+    "@opentelemetry/resources" "1.7.0"
+    lodash.merge "4.6.2"
 
 "@opentelemetry/sdk-trace-base@1.0", "@opentelemetry/sdk-trace-base@1.0.1":
   version "1.0.1"
@@ -2087,7 +2129,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lodash.merge@^4.6.2:
+lodash.merge@4.6.2, lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
