@@ -1,8 +1,6 @@
 import { RemoteGraphQLDataSource } from '@apollo/gateway'
-import { trace, context as spanContext, SpanKind, SpanStatusCode } from '@opentelemetry/api'
+import { trace, context as spanContext } from '@opentelemetry/api'
 import { GLOBAL_VARS } from '../../state/store'
-import { gatewayTimeout } from '../../utils/gatewayTimeout'
-import { isTokenValid } from '../../utils/token'
 
 export class TenantDataSource extends RemoteGraphQLDataSource {
   willSendRequest({ request, context }: any) {
@@ -24,8 +22,6 @@ export class TenantDataSource extends RemoteGraphQLDataSource {
       .getSpan(spanContext.active())
       ?.spanContext()
       .traceFlags.toLocaleString(undefined, { minimumIntegerDigits: 2 })}`
-
-    console.log(`sending trace: ${traceParent}`)
 
     request.http.headers.set('traceParent', traceParent)
   }
