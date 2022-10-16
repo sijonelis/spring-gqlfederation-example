@@ -10,11 +10,18 @@
         <module name="product" />
         <module name="axon_api" />
         <module name="inventory" />
-        <module name="user" />
         <module name="configuration" />
+        <module name="user" />
         <module name="review" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel>
+      <module name="axon_api" target="17" />
+      <module name="configuration" target="17" />
+      <module name="inventory" target="17" />
+      <module name="product" target="1.8" />
+      <module name="review" target="17" />
+      <module name="user" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
