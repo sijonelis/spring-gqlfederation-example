@@ -1,11 +1,24 @@
-type Product @key(fields: "ean") {
-    id: ID!
-    ean: String!
-    name: String
-    unitPrice: Float
-    unitWeight: Float
-}
-
 type Query {
     topProducts(first: Int = 5): [Product]
 }
+
+type Mutation {
+    createProduct(product: ProductInput): Product
+}
+
+type Product @key(fields: "ean") {
+    id: ID!
+    ean: String!
+    name: String!
+    unitPrice: Float!
+    unitWeight: Float!
+}
+
+input ProductInput {
+    ean: String!
+    name: String!
+    unitPrice: Float!
+    unitWeight: Float!
+}
+
+

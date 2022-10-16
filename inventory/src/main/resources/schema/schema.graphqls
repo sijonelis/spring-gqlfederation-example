@@ -1,6 +1,6 @@
 type Product @key(fields: "ean") @extends {
     ean: String! @external
-    unitWeight: Float @external
+    unitWeight: Float! @external
     stock: Float @requires(fields: "ean")
     unitShippingEstimate: Float @requires(fields: "ean unitWeight")
 }

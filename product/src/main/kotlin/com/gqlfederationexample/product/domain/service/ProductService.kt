@@ -1,9 +1,9 @@
 package com.gqlfederationexample.product.domain.service
 
+import com.gqlfederationexample.axonapi.commands.CreateProductCommand
 import com.gqlfederationexample.product.domain.model.Product
 import com.gqlfederationexample.product.domain.repository.ProductRepository
 import io.opentelemetry.api.trace.Tracer
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,10 +11,6 @@ class ProductService (
     private val productRepository: ProductRepository,
     private val tracer: Tracer
 ){
-    fun findProductById(productId: Long): Product? {
-        return productRepository.findByIdOrNull(productId)
-    }
-
     fun findProductByEan(ean: String): Product? {
         return productRepository.findByEan(ean)
     }
@@ -24,5 +20,10 @@ class ProductService (
         val products = productRepository.findAll().toList()
         span.end()
         return products
+    }
+
+    fun createProduct(command: CreateProductCommand): Product {
+        val p = Product(command)
+        return productRepository.save(p)
     }
 }

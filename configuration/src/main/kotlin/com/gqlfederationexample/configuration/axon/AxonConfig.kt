@@ -1,6 +1,5 @@
 package com.gqlfederationexample.configuration.config.axon
 
-import com.gqlfederationexample.configuration.axon.BetterOpenTelemetrySpanFactory
 import io.opentelemetry.api.trace.Tracer
 import org.axonframework.axonserver.connector.AxonServerConfiguration
 import org.axonframework.axonserver.connector.AxonServerConnectionManager
