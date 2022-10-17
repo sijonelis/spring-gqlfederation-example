@@ -18,6 +18,6 @@ open class User {
     @OneToOne
     open val address: Address? = null
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     open val orders: List<Order> = listOf()
 }

@@ -1,5 +1,6 @@
 package com.gqlfederationexample.product.api
 
+import com.gqlfederationexample.axonapi.commands.CreateKotlinProductCommand
 import com.gqlfederationexample.axonapi.commands.CreateProductCommand
 import com.gqlfederationexample.product.domain.model.Product
 import com.gqlfederationexample.product.system.QueryDispatcher
@@ -19,6 +20,12 @@ class ProductResolver (
         var lala =  queryDispatcher.getTopProductsByReviewScore()
        return queryDispatcher.getTopProductsByReviewScore()
     }
+//
+//    @DgsMutation
+//    fun createProduct(product: CreateKotlinProductCommand):Product? {
+//        var productEan = commandGateway.send<String>(product).join()
+//        return queryDispatcher.getProductByEan(productEan)
+//    }
 
     @DgsMutation
     fun createProduct(product: CreateProductCommand):Product? {
