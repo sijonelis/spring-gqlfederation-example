@@ -14,7 +14,7 @@ class QueryDispatcher(private val queryGateway: QueryGateway) {
         return queryGateway.query(query, Product::class.java).join()
     }
 
-    fun getTopProductsByReviewScore(): Collection<Product> {
+    fun getTopProductsByReviewScore(): List<Product> {
         val query = TopProductByReviewScore()
         return queryGateway.queryMany<Product, TopProductByReviewScore>(query).join()
     }

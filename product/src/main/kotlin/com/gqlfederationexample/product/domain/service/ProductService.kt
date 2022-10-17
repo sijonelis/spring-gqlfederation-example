@@ -22,8 +22,8 @@ class ProductService (
         return products
     }
 
-    fun createProduct(command: CreateProductCommand): Product {
-        val p = Product(command)
-        return productRepository.save(p)
-    }
+//    fun createProduct(command: CreateProductCommand): Product {
+//        val p = Product(command)
+//        return productRepository.save(p)
+//    }
 }

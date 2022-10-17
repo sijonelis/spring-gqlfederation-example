@@ -23,8 +23,8 @@ class ProductProjection (
         return productService.findTopProductsByReviewScore()
     }
 
-    @CommandHandler
-    fun handle(command: CreateProductCommand): Product {
-        return productService.createProduct(command)
-    }
+//    @CommandHandler
+//    fun handle(command: CreateProductCommand): Product {
+//        return productService.createProduct(command)
+//    }
 }

@@ -7,3 +7,9 @@ CREATE TABLE products (
 
 CREATE INDEX idx_ean ON products(ean);
 
+CREATE TABLE kotlin_products (
+  ean VARCHAR(13) PRIMARY KEY,
+  name VARCHAR(64) NOT NULL,
+  unit_price NUMERIC NOT NULL,
+  unit_weight NUMERIC NOT NULL);
+

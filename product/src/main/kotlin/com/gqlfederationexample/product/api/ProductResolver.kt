@@ -16,11 +16,13 @@ class ProductResolver (
 ){
     @DgsQuery
     fun topProducts(first: Int, dataFetchingEnvironment: DataFetchingEnvironment?): Collection<Product> {
-        return queryDispatcher.getTopProductsByReviewScore()
+        var lala =  queryDispatcher.getTopProductsByReviewScore()
+       return queryDispatcher.getTopProductsByReviewScore()
     }
 
     @DgsMutation
-    fun createProduct(product: CreateProductCommand):Product {
-        return commandGateway.send<Product>(product).join()
+    fun createProduct(product: CreateProductCommand):Product? {
+        var productEan = commandGateway.send<String>(product).join()
+        return queryDispatcher.getProductByEan(productEan)
     }
 }
