@@ -11,9 +11,19 @@ receivers:
         endpoint: 0.0.0.0:4318
       grpc:
         endpoint: 0.0.0.0:4317
+  otlp/spanmetrics:
+    protocols:
+      grpc:
+        endpoint: localhost:65535
 
 processors:
   batch:
+  spanmetrics:
+    metrics_exporter: prometheus
+    latency_histogram_buckets: [ 1ms, 25ms, 100ms, 500ms, 1000ms, 2000ms, 5000ms ]
+    dimensions:
+      - name: operationName
+      - name: duration
 
 exporters:
   logging:
@@ -22,11 +32,18 @@ exporters:
     endpoint: jaeger-all-in-one:14250
     tls:
       insecure: true
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    resource_to_telemetry_conversion:
+      enabled: true
 
 service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      processors: [ batch ]
+      processors: [ spanmetrics, batch ]
       exporters: [ logging, jaeger ]
+    metrics/spanmetrics:
+      receivers: [ otlp/spanmetrics ]
+      exporters: [ prometheus ]
   extensions: [ memory_ballast, zpages ]
