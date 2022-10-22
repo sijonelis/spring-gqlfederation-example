@@ -3,6 +3,7 @@ const { Resource } = require('@opentelemetry/resources')
 const { SimpleSpanProcessor, ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-base')
 const { BatchSpanProcessor } = require('@opentelemetry/sdk-trace-base')
 const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node')
+const { TraceIdRatioBasedSampler } = require('@opentelemetry/core')
 const { registerInstrumentations } = require('@opentelemetry/instrumentation')
 const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http')
 const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express')
@@ -24,6 +25,7 @@ export const configureOtel = () => {
         'service.name': 'gateway',
       })
     ),
+    sampler: new TraceIdRatioBasedSampler(1.0),
   })
 
   // Configure a test exporter to print all traces to the console

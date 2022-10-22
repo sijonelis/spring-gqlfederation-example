@@ -23,6 +23,8 @@ export class TenantDataSource extends RemoteGraphQLDataSource {
       ?.spanContext()
       .traceFlags.toLocaleString(undefined, { minimumIntegerDigits: 2 })}`
 
+    console.log(traceParent)
+
     request.http.headers.set('traceParent', traceParent)
   }
 }

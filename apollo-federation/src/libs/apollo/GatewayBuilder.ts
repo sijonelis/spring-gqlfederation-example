@@ -1,6 +1,9 @@
 import type { ServiceEndpointDefinition } from '@apollo/gateway'
 import { ApolloGateway } from '@apollo/gateway'
-import { ApolloServerPluginCacheControl, ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
+import {
+  ApolloServerPluginCacheControl,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from 'apollo-server-core'
 import { ApolloError } from 'apollo-server-errors'
 import { ApolloServer } from 'apollo-server-express'
 import type { Express } from 'express'
@@ -23,8 +26,8 @@ export const gatewayBuilder = async (app: Express, serviceList: ServiceEndpointD
     gateway,
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground({}),
-       ApolloServerPluginCacheControl({defaultMaxAge: 360})
-      ],
+      ApolloServerPluginCacheControl({ defaultMaxAge: 360 }),
+    ],
     introspection: true,
     context: ({ req, res }) => {
       // console.time('⏳ ~ ApolloServer req.body.query')
@@ -42,11 +45,11 @@ export const gatewayBuilder = async (app: Express, serviceList: ServiceEndpointD
       const authorization = req.headers.authorization || GLOBAL_VARS.authToken
       return { tenantId, acceptLanguage, authorization }
     },
-    formatError: (err: GraphQLError) => {
-      logger.error('----------------------------')
-      console.error('❌ ~ ApolloServer err: ', err)
-      return new ApolloError(err.message, err.extensions.code, err.extensions)
-    },
+    // formatError: (err: GraphQLError) => {
+    //   logger.error('----------------------------')
+    //   console.error('❌ ~ ApolloServer err: ', err)
+    //   return new ApolloError(err.message, err.extensions.code, err.extensions)
+    // },
   })
   console.timeEnd('⏳ ~ ApolloServer')
 
