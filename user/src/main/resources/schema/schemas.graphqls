@@ -1,5 +1,11 @@
-    type Query {
+type Query {
     user(userId: Int!): User
+}
+
+type Review @key(fields: "id") @extends {
+    id: ID @external
+    authorId: ID @external
+    author: User @requires(fields: "authorId")
 }
 
 type User @key(fields: "id") {

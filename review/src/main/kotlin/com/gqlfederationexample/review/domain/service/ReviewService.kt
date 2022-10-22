@@ -15,8 +15,8 @@ class ReviewService (
         return reviewRepository.findByIdOrNull(reviewId)
     }
 
-    fun findProductReviews(productId: Long): List<Review> {
-        return reviewRepository.findAllByProductId(productId)
+    fun findProductReviews(productEan: String): List<Review> {
+        return reviewRepository.findAllByProductEan(productEan)
     }
 
     fun findUserReviews(authorId: Long): List<Review> {

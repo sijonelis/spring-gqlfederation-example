@@ -1,10 +1,14 @@
 package com.gqlfederationexample.product.api
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.gqlfederationexample.axonapi.commands.CreateKotlinProductCommand
 import com.gqlfederationexample.axonapi.commands.CreateProductCommand
+import com.gqlfederationexample.axonapi.queries.SingleProductByEanQuery
 import com.gqlfederationexample.product.domain.model.Product
 import com.gqlfederationexample.product.system.QueryDispatcher
 import com.netflix.graphql.dgs.DgsComponent
+import com.netflix.graphql.dgs.DgsEntityFetcher
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsQuery
 import graphql.schema.DataFetchingEnvironment
@@ -20,12 +24,6 @@ class ProductResolver (
         var lala =  queryDispatcher.getTopProductsByReviewScore()
        return queryDispatcher.getTopProductsByReviewScore()
     }
-//
-//    @DgsMutation
-//    fun createProduct(product: CreateKotlinProductCommand):Product? {
-//        var productEan = commandGateway.send<String>(product).join()
-//        return queryDispatcher.getProductByEan(productEan)
-//    }
 
     @DgsMutation
     fun createProduct(product: CreateProductCommand):Product? {

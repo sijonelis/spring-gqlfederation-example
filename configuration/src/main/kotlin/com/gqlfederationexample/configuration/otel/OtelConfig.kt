@@ -47,7 +47,11 @@ open class OtelConfig {
                 SdkTracerProvider.builder()
                     .setResource(resource)
                     .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
-                    .setSampler(Sampler.traceIdRatioBased(samplerProperties.probability))
+                    .setSampler(
+                        Sampler.parentBased(
+                            Sampler.traceIdRatioBased(0.0)//samplerProperties.getProbability())
+                        )
+                    )
                     .build()
             )
             .setPropagators(contextPropagators)

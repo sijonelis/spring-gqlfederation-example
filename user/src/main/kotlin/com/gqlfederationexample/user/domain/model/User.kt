@@ -15,7 +15,7 @@ open class User {
     @Column
     open val username: String = ""
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     open val address: Address? = null
 
     @OneToMany(fetch = FetchType.EAGER)

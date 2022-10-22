@@ -16,8 +16,8 @@ class QueryDispatcher(private val queryGateway: QueryGateway) {
         return queryGateway.query<Review, SingleReviewByIdQuery>(query).join()
     }
 
-    fun getProductReviews(productId: Long): List<Review> {
-        val query = ProductReviewsQuery(productId)
+    fun getProductReviews(productEan: String): List<Review> {
+        val query = ProductReviewsQuery(productEan)
         return queryGateway.queryMany<Review, ProductReviewsQuery>(query).join()
     }
 

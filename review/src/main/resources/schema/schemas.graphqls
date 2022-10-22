@@ -2,10 +2,15 @@ type Query {
     review(reviewId: ID): Review
 }
 
+type Product @key(fields: "ean") @extends {
+    ean: String! @external
+    reviews: [Review] @requires(fields: "ean")
+}
+
 type Review @key(fields: "id") {
     id: ID!
     body: String
     authorId: ID
-    productId: ID
+    productEan: String
     rating: Int
 }

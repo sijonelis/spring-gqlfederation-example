@@ -24,6 +24,6 @@ class ReviewProjection (
 
     @QueryHandler
     fun handle(query: ProductReviewsQuery): List<Review> {
-        return reviewService.findProductReviews(query.productId)
+        return reviewService.findProductReviews(query.productEan)
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface ReviewRepository : CrudRepository<Review, Long> {
     fun findAllByAuthorId(authorId: Long): List<Review>
-    fun findAllByProductId(productId: Long): List<Review>
+    fun findAllByProductEan(productEan: String): List<Review>
 }

@@ -1,7 +1,9 @@
 package com.gqlfederationexample.user.system
 
+import com.gqlfederationexample.axonapi.queries.AddressByUserIdQuery
 import com.gqlfederationexample.axonapi.queries.SingleReviewByIdQuery
 import com.gqlfederationexample.axonapi.queries.SingleUserByIdQuery
+import com.gqlfederationexample.user.domain.model.Address
 import com.gqlfederationexample.user.domain.model.User
 import org.axonframework.extensions.kotlin.query
 import org.axonframework.queryhandling.QueryGateway
@@ -14,8 +16,8 @@ class QueryDispatcher(private val queryGateway: QueryGateway) {
         return queryGateway.query<User, SingleUserByIdQuery>(query).join()
     }
 
-    fun getReviewById(reviewId: Long): Object {
-        val query = SingleReviewByIdQuery(reviewId)
-        return queryGateway.query(query, Object::class.java).join()
+    fun findAddressByUserId(userId: Long): Address? {
+        val query = AddressByUserIdQuery(userId)
+        return queryGateway.query<Address, AddressByUserIdQuery>(query).join()
     }
 }
