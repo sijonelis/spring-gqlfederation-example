@@ -39,4 +39,4 @@ services:
       - ./grafana.ini:/etc/grafana/grafana.ini
       - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
     ports:
-      - 3000:3000
+      - 3003:3000

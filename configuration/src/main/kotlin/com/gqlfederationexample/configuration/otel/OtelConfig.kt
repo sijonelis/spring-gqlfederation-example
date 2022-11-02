@@ -49,7 +49,7 @@ open class OtelConfig {
                     .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
                     .setSampler(
                         Sampler.parentBased(
-                            Sampler.traceIdRatioBased(0.0)//samplerProperties.getProbability())
+                            Sampler.traceIdRatioBased(1.0)//samplerProperties.getProbability())
                         )
                     )
                     .build()

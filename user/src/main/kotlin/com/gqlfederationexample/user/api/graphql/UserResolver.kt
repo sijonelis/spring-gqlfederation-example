@@ -7,6 +7,9 @@ import com.gqlfederationexample.user.domain.model.User
 import com.gqlfederationexample.user.system.QueryDispatcher
 import com.netflix.graphql.dgs.*
 import graphql.schema.DataFetchingEnvironment
+import org.dataloader.DataLoader
+import java.util.concurrent.CompletableFuture
+
 
 @DgsComponent
 class UserResolver(private val queryDispatcher: QueryDispatcher) {
@@ -37,5 +40,12 @@ class UserResolver(private val queryDispatcher: QueryDispatcher) {
     fun resolveReviewAuthor(dataFetchingEnvironment: DgsDataFetchingEnvironment): User {
         val review = dataFetchingEnvironment.getSource<Review>()
         return queryDispatcher.getUserById(review.authorId)
+    }
+
+    @DgsData(parentType = "Review", field = "authorDl")
+    fun resolveAuthorsThroughDataLoader(dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<User> {
+        val dataLoader: DataLoader<Long, User> = dataFetchingEnvironment.getDataLoader("authorDl")
+        val review = dataFetchingEnvironment.getSource<Review>()
+        return dataLoader.load(review.authorId)
     }
 }
