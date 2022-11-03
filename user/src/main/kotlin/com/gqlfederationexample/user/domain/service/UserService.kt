@@ -21,11 +21,6 @@ open class UserService (
 
     @WithSpan("Loading users with dataloader")
     open fun loadUsers(userIdList: Set<Long>): List<User> {
-        val span = tracer.spanBuilder("Loading users with dataloader")
-            .setParent(Context.current().with(Span.current()))
-            .startSpan()
-        var userList = userRepository.findAllById(userIdList) as List<User>
-        span.end()
-        return userList
+        return userRepository.findAllById(userIdList) as List<User>
     }
 }

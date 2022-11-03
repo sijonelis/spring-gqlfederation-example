@@ -1,6 +1,6 @@
 package com.gqlfederationexample.user.domain.dataloader;
 
-import com.gqlfederationexample.user.api.graphql.DgsDataLoaderAsyncExecutor;
+import com.gqlfederationexample.configuration.otel.DgsDataLoaderAsyncExecutor;
 import com.gqlfederationexample.user.domain.model.User;
 import com.gqlfederationexample.user.system.QueryDispatcher;
 import com.netflix.graphql.dgs.DgsDataLoader;

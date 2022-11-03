@@ -1,4 +1,4 @@
-package com.gqlfederationexample.user.api.graphql;
+package com.gqlfederationexample.configuration.otel;
 
 import io.opentelemetry.api.trace.Span;
 

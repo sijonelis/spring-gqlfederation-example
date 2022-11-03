@@ -1,7 +1,6 @@
-package com.gqlfederationexample.user.api.graphql;
+package com.gqlfederationexample.configuration.otel;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
-import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.*;
 import io.opentelemetry.context.Context;
 import lombok.extern.slf4j.Slf4j;

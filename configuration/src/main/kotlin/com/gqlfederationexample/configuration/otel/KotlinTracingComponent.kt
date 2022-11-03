@@ -1,4 +1,4 @@
-package com.gqlfederationexample.user.api.graphql
+package com.gqlfederationexample.configuration.otel
 
 import graphql.ExecutionResult
 import graphql.execution.instrumentation.InstrumentationContext
@@ -9,12 +9,9 @@ import graphql.execution.instrumentation.parameters.InstrumentationFieldFetchPar
 import graphql.schema.DataFetcher
 import graphql.schema.GraphQLNonNull
 import graphql.schema.GraphQLObjectType
-import io.opentelemetry.api.trace.Span
 import io.opentelemetry.api.trace.Tracer
-import io.opentelemetry.context.Context
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.concurrent.CompletableFuture
 

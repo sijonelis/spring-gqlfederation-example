@@ -3,11 +3,9 @@ package com.gqlfederationexample.user.system
 import com.gqlfederationexample.axonapi.queries.AddressByUserIdQuery
 import com.gqlfederationexample.axonapi.queries.SingleUserByIdQuery
 import com.gqlfederationexample.axonapi.queries.UserListByIdsQuery
-import com.gqlfederationexample.user.api.graphql.DgsDataLoaderAsyncExecutor
-import com.gqlfederationexample.user.api.graphql.SpanThreadContextHolder
+import com.gqlfederationexample.configuration.otel.SpanThreadContextHolder
 import com.gqlfederationexample.user.domain.model.Address
 import com.gqlfederationexample.user.domain.model.User
-import io.opentelemetry.api.trace.SpanContext
 import io.opentelemetry.api.trace.Tracer
 import io.opentelemetry.context.Context
 import org.axonframework.extensions.kotlin.query
@@ -34,6 +32,7 @@ class QueryDispatcher(private val queryGateway: QueryGateway, private val tracer
         }
         val query = UserListByIdsQuery(userIdList)
         val response = queryGateway.queryMany<User, UserListByIdsQuery>(query).join().map {it.id!! to it }.toMap()
+//        span.end()
         return response
     }
 }
